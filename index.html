@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tom Photo Album</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #fffaf5;
+      color: #222;
+    }
+
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #eee;
+      font-weight: bold;
+    }
+
+    .hero {
+      height: 70vh;
+      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+        url("https://picsum.photos/1600/1000?random=20") center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      letter-spacing: 12px;
+      font-weight: 300;
+    }
+
+    .info {
+      padding: 28px 22px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 18px 20px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #eee;
+    }
+
+    button {
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .download {
+      background: #222;
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      background: #fff;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Tom Photo Album</header>
+
+  <section class="hero">
+    <h1>PHOTO</h1>
+  </section>
+
+  <section class="info">
+    <h2>2026/05/17 ペイントフォト撮影会</h2>
+    <p>24枚　｜　公開期限：2026/06/30</p>
+  </section>
+
+  <div class="toolbar">
+    <button>選択</button>
+    <button class="download">まとめてDL</button>
+  </div>
+
+  <section class="gallery">
+    <img src="https://picsum.photos/800/1000?random=1">
+    <img src="https://picsum.photos/800/1000?random=2">
+    <img src="https://picsum.photos/800/1000?random=3">
+    <img src="https://picsum.photos/800/1000?random=4">
+    <img src="https://picsum.photos/800/1000?random=5">
+    <img src="https://picsum.photos/800/1000?random=6">
+    <img src="https://picsum.photos/800/1000?random=7">
+    <img src="https://picsum.photos/800/1000?random=8">
+    <img src="https://picsum.photos/800/1000?random=9">
+    <img src="https://picsum.photos/800/1000?random=10">
+  </section>
+
+</body>
+</html>
