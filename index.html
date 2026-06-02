@@ -132,19 +132,19 @@ line-height:1.8;
 
 .actions{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(5,1fr);
 gap:8px;
 margin-top:16px;
 }
 
 .action-btn{
-padding:10px 6px;
+padding:10px 5px;
 text-align:center;
 border-radius:10px;
 text-decoration:none;
 background:#f4f4f4;
 color:#333;
-font-size:13px;
+font-size:12px;
 border:0;
 cursor:pointer;
 font-family:"Zen Maru Gothic",sans-serif;
@@ -173,7 +173,6 @@ color:#999;
 cursor:pointer;
 }
 
-/* モーダル */
 .modal{
 display:none;
 position:fixed;
@@ -195,6 +194,8 @@ border-radius:24px;
 padding:28px;
 max-width:520px;
 width:100%;
+max-height:90vh;
+overflow:auto;
 }
 
 .modal-box h2{
@@ -253,6 +254,16 @@ font-size:28px;
 .album-image{
 height:240px;
 }
+
+.actions{
+grid-template-columns:repeat(5,1fr);
+gap:6px;
+}
+
+.action-btn{
+font-size:11px;
+padding:9px 4px;
+}
 }
 </style>
 </head>
@@ -295,6 +306,9 @@ height:240px;
     <label>サムネイル画像URL</label>
     <input id="thumb" placeholder="Google Driveのthumbnail URL">
 
+    <label>DriveフォルダURL</label>
+    <input id="drive" placeholder="Google DriveフォルダURL">
+
     <div class="modal-actions">
       <button class="action-btn cancel" onclick="closeModal()">キャンセル</button>
       <button class="action-btn save" onclick="saveAlbum()">保存</button>
@@ -309,7 +323,8 @@ const defaultAlbums = [
     count: "24枚",
     limit: "2026/06/30",
     url: "https://tom-photo-album.vercel.app/paint-photo.html",
-    thumb: "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200"
+    thumb: "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200",
+    drive: "https://drive.google.com/drive/folders/1jOgNso6cg-yONrqpHK6MWhZiiso1f9gB"
   }
 ];
 
@@ -343,6 +358,10 @@ function renderAlbums(){
               📋 コピー
             </button>
 
+            <a class="action-btn" href="${album.drive || '#'}" target="_blank">
+              📁 Drive
+            </a>
+
             <button class="action-btn" onclick="openEditModal(${index})">
               ⚙️ 設定
             </button>
@@ -371,11 +390,12 @@ function openEditModal(index){
   const album = albums[index];
 
   document.getElementById("modalTitle").textContent = "アルバムを編集";
-  document.getElementById("title").value = album.title;
-  document.getElementById("count").value = album.count;
-  document.getElementById("limit").value = album.limit;
-  document.getElementById("url").value = album.url;
-  document.getElementById("thumb").value = album.thumb;
+  document.getElementById("title").value = album.title || "";
+  document.getElementById("count").value = album.count || "";
+  document.getElementById("limit").value = album.limit || "";
+  document.getElementById("url").value = album.url || "";
+  document.getElementById("thumb").value = album.thumb || "";
+  document.getElementById("drive").value = album.drive || "";
 
   document.getElementById("modal").classList.add("active");
 }
@@ -390,6 +410,7 @@ function clearForm(){
   document.getElementById("limit").value = "";
   document.getElementById("url").value = "";
   document.getElementById("thumb").value = "";
+  document.getElementById("drive").value = "";
 }
 
 function saveAlbum(){
@@ -398,7 +419,8 @@ function saveAlbum(){
     count: document.getElementById("count").value,
     limit: document.getElementById("limit").value,
     url: document.getElementById("url").value,
-    thumb: document.getElementById("thumb").value
+    thumb: document.getElementById("thumb").value,
+    drive: document.getElementById("drive").value
   };
 
   if(editingIndex === null){
