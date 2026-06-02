@@ -3,257 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Tom Photo Album 管理画面</title>
 
 <style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",sans-serif;background:#f8f6f2;color:#333}
+header{background:white;padding:20px 30px;border-bottom:1px solid #e5e5e5;display:flex;justify-content:space-between}
+header h1{margin:0;font-size:24px}
+.container{max-width:1200px;margin:auto;padding:30px 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.topbar h2{margin:0;font-size:34px}
+.new-button{background:#f0b35f;color:white;padding:14px 20px;border-radius:12px;border:0;font-weight:bold;font-size:16px;cursor:pointer}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.album-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.album-image{height:220px;overflow:hidden;position:relative}
+.album-image img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;top:12px;right:12px;background:#6ca66f;color:white;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold}
+.album-content{padding:18px}
+.album-title{font-size:22px;font-weight:bold;margin-bottom:10px}
+.album-meta{font-size:14px;color:#666;line-height:1.8}
+.url-box{margin-top:14px;padding:10px;background:#f6f6f6;border-radius:10px;font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.action-btn{padding:10px;text-align:center;border-radius:10px;text-decoration:none;background:#f4f4f4;color:#333;font-size:13px;border:0;cursor:pointer}
+.delete{color:#d9534f}
+.new-card{border:3px dashed #ddd;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;min-height:420px;font-size:42px;color:#999;cursor:pointer}
 
-*{
-box-sizing:border-box;
-}
-
-body{
-margin:0;
-font-family:"Helvetica Neue",sans-serif;
-background:#f8f6f2;
-color:#333;
-}
-
-header{
-background:white;
-padding:20px 30px;
-border-bottom:1px solid #e5e5e5;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-header h1{
-margin:0;
-font-size:24px;
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:30px 20px;
-}
-
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-}
-
-.topbar h2{
-margin:0;
-font-size:34px;
-}
-
-.new-button{
-background:#f0b35f;
-color:white;
-padding:14px 20px;
-border-radius:12px;
-text-decoration:none;
-font-weight:bold;
-}
-
-.album-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-gap:24px;
-}
-
-.album-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,.06);
-}
-
-.album-image{
-height:220px;
-overflow:hidden;
-position:relative;
-}
-
-.album-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-}
-
-.badge{
-position:absolute;
-top:12px;
-right:12px;
-background:#6ca66f;
-color:white;
-padding:6px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:bold;
-}
-
-.album-content{
-padding:18px;
-}
-
-.album-title{
-font-size:22px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.album-meta{
-font-size:14px;
-color:#666;
-line-height:1.8;
-}
-
-.url-box{
-margin-top:14px;
-padding:10px;
-background:#f6f6f6;
-border-radius:10px;
-font-size:13px;
-overflow:hidden;
-white-space:nowrap;
-text-overflow:ellipsis;
-}
-
-.actions{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
-margin-top:14px;
-}
-
-.action-btn{
-padding:10px;
-text-align:center;
-border-radius:10px;
-text-decoration:none;
-background:#f4f4f4;
-color:#333;
-font-size:13px;
-}
-
-.delete{
-color:#d9534f;
-}
-
-.new-card{
-border:3px dashed #ddd;
-background:white;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:420px;
-font-size:24px;
-font-weight:bold;
-color:#999;
-}
-
-@media(max-width:768px){
-
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-gap:12px;
-}
-
-.topbar h2{
-font-size:28px;
-}
-
-}
-
+/* モーダル */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal.active{display:flex}
+.modal-box{background:white;border-radius:24px;padding:28px;max-width:520px;width:100%}
+.modal-box h2{margin-top:0;font-size:28px}
+label{display:block;margin-top:16px;font-weight:bold}
+input{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;font-size:15px;margin-top:6px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
+.cancel{background:#eee;color:#333}
+.save{background:#222;color:white}
 </style>
-
 </head>
 
 <body>
 
 <header>
-<h1>Tom Photo Album</h1>
-<div>管理画面</div>
+  <h1>Tom Photo Album</h1>
+  <div>管理画面</div>
 </header>
 
 <div class="container">
+  <div class="topbar">
+    <h2>アルバム一覧</h2>
+    <button class="new-button" onclick="openModal()">＋ 新しいアルバム</button>
+  </div>
 
-<div class="topbar">
-<h2>アルバム一覧</h2>
-
-<a href="#" class="new-button">
-＋ 新しいアルバム
-</a>
+  <div class="album-grid" id="albumGrid"></div>
 </div>
 
-<div class="album-grid">
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>新しいアルバムを作成</h2>
 
-<div class="album-card">
+    <label>アルバム名</label>
+    <input id="title" placeholder="例：2026/06/07 紫陽花撮影会">
 
-<div class="album-image">
+    <label>写真枚数</label>
+    <input id="count" placeholder="例：24枚">
 
-<img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200">
+    <label>公開期限</label>
+    <input id="limit" placeholder="例：2026/07/31">
 
-<div class="badge">
-公開中
+    <label>公開URL</label>
+    <input id="url" placeholder="例：https://tom-photo-album.vercel.app/xxx.html">
+
+    <label>サムネイル画像URL</label>
+    <input id="thumb" placeholder="Google Driveのthumbnail URL">
+
+    <div class="modal-actions">
+      <button class="action-btn cancel" onclick="closeModal()">キャンセル</button>
+      <button class="action-btn save" onclick="saveAlbum()">保存</button>
+    </div>
+  </div>
 </div>
 
-</div>
+<script>
+const defaultAlbums = [
+  {
+    title: "2026/05/17 ペイントフォト",
+    count: "24枚",
+    limit: "2026/06/30",
+    url: "https://tom-photo-album.vercel.app/paint-photo.html",
+    thumb: "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200"
+  }
+];
 
-<div class="album-content">
+let albums = JSON.parse(localStorage.getItem("albums")) || defaultAlbums;
 
-<div class="album-title">
-2026/05/17 ペイントフォト
-</div>
+function renderAlbums(){
+  const grid = document.getElementById("albumGrid");
+  grid.innerHTML = "";
 
-<div class="album-meta">
-24枚<br>
-公開期限：2026/06/30
-</div>
+  albums.forEach((album, index) => {
+    grid.innerHTML += `
+      <div class="album-card">
+        <div class="album-image">
+          <img src="${album.thumb}">
+          <div class="badge">公開中</div>
+        </div>
+        <div class="album-content">
+          <div class="album-title">${album.title}</div>
+          <div class="album-meta">
+            ${album.count}<br>
+            公開期限：${album.limit}
+          </div>
+          <div class="url-box">${album.url}</div>
+          <div class="actions">
+            <a class="action-btn" href="${album.url}" target="_blank">開く</a>
+            <a class="action-btn" href="#">Drive</a>
+            <a class="action-btn" href="#">設定</a>
+            <button class="action-btn delete" onclick="deleteAlbum(${index})">削除</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
 
-<div class="url-box">
-https://tom-photo-album.vercel.app/paint-photo.html
-</div>
+  grid.innerHTML += `<div class="new-card" onclick="openModal()">＋</div>`;
+}
 
-<div class="actions">
+function openModal(){
+  document.getElementById("modal").classList.add("active");
+}
 
-<a class="action-btn" href="paint-photo.html">
-開く
-</a>
+function closeModal(){
+  document.getElementById("modal").classList.remove("active");
+}
 
-<a class="action-btn" href="#">
-Drive
-</a>
+function saveAlbum(){
+  const album = {
+    title: document.getElementById("title").value,
+    count: document.getElementById("count").value,
+    limit: document.getElementById("limit").value,
+    url: document.getElementById("url").value,
+    thumb: document.getElementById("thumb").value
+  };
 
-<a class="action-btn" href="#">
-設定
-</a>
+  albums.push(album);
+  localStorage.setItem("albums", JSON.stringify(albums));
+  closeModal();
+  renderAlbums();
+}
 
-<a class="action-btn delete" href="#">
-削除
-</a>
+function deleteAlbum(index){
+  albums.splice(index,1);
+  localStorage.setItem("albums", JSON.stringify(albums));
+  renderAlbums();
+}
 
-</div>
-
-</div>
-
-</div>
-
-<div class="new-card">
-＋
-</div>
-
-</div>
-
-</div>
+renderAlbums();
+</script>
 
 </body>
 </html>
