@@ -355,7 +355,9 @@ function renderAlbums(){
 
   albums.forEach((album, index) => {
     grid.innerHTML += `
-      <div class="album-card">
+      <div class="album-card"
+onclick="window.open('${album.url}','_blank')"
+style="cursor:pointer;">
         <div class="album-image">
           <img src="${album.thumb || ""}">
           <div class="badge">公開中</div>
