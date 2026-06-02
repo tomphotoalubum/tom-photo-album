@@ -138,6 +138,13 @@ header h1{
   line-height:1.8;
 }
 
+.password-note{
+  margin-top:6px;
+  font-size:13px;
+  color:#7faea3;
+  font-weight:700;
+}
+
 .actions{
   display:flex;
   gap:7px;
@@ -318,6 +325,9 @@ input{
     <label>公開期限</label>
     <input id="limit" placeholder="例：2026/07/31">
 
+    <label>合い言葉</label>
+    <input id="password" placeholder="例：0411">
+
     <label>公開URL</label>
     <input id="url" placeholder="例：https://tom-photo-album.vercel.app/xxx.html">
 
@@ -341,12 +351,13 @@ input{
 const defaultAlbums = [
   {
     title: "2026/05/17 ペイントフォト",
-    count: "24枚",
+    count: "125枚",
     limit: "2026/06/30",
+    password: "paint2026",
     url: "https://tom-photo-album.vercel.app/paint-photo.html",
     thumb: "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200",
     drive: "https://drive.google.com/drive/folders/1jOgNso6cg-yONrqpHK6MWhZiiso1f9gB",
-    zip: ""
+    zip: "https://drive.google.com/uc?export=download&id=19zP1WPDXIajBH0DDxEq_EUOJf1wjqM77"
   }
 ];
 
@@ -371,6 +382,10 @@ function renderAlbums(){
           <div class="album-meta">
             ${album.count}<br>
             公開期限：${album.limit}
+          </div>
+
+          <div class="password-note">
+            合い言葉：${album.password || "未設定"}
           </div>
 
           <div class="actions">
@@ -415,6 +430,7 @@ function openEditModal(index){
   document.getElementById("title").value = album.title || "";
   document.getElementById("count").value = album.count || "";
   document.getElementById("limit").value = album.limit || "";
+  document.getElementById("password").value = album.password || "";
   document.getElementById("url").value = album.url || "";
   document.getElementById("thumb").value = album.thumb || "";
   document.getElementById("drive").value = album.drive || "";
@@ -431,6 +447,7 @@ function clearForm(){
   document.getElementById("title").value = "";
   document.getElementById("count").value = "";
   document.getElementById("limit").value = "";
+  document.getElementById("password").value = "";
   document.getElementById("url").value = "";
   document.getElementById("thumb").value = "";
   document.getElementById("drive").value = "";
@@ -442,6 +459,7 @@ function saveAlbum(){
     title: document.getElementById("title").value,
     count: document.getElementById("count").value,
     limit: document.getElementById("limit").value,
+    password: document.getElementById("password").value,
     url: document.getElementById("url").value,
     thumb: document.getElementById("thumb").value,
     drive: document.getElementById("drive").value,
