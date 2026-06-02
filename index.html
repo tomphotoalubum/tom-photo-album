@@ -13,260 +13,275 @@
 *{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:"Zen Maru Gothic",sans-serif;
-background:#fffaf5;
-color:#333;
+  margin:0;
+  font-family:"Zen Maru Gothic",sans-serif;
+  background:#f5f8f7;
+  color:#2f3f3c;
 }
 
 header{
-background:white;
-padding:16px 30px;
-border-bottom:1px solid #e5e5e5;
-display:flex;
-justify-content:space-between;
-align-items:center;
+  background:white;
+  padding:18px 30px;
+  border-bottom:1px solid #e3eeee;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 header h1{
-margin:0;
-font-size:24px;
+  margin:0;
+  font-size:25px;
+  color:#5f8f86;
 }
 
 .tagline{
-font-size:13px;
-color:#888;
-margin-top:4px;
+  font-size:13px;
+  color:#6b8e87;
+  margin-top:4px;
+}
+
+.admin-label{
+  color:#6b8e87;
+  font-weight:700;
 }
 
 .container{
-max-width:1200px;
-margin:auto;
-padding:36px 20px;
+  max-width:1200px;
+  margin:auto;
+  padding:36px 20px;
 }
 
 .topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
 }
 
 .topbar h2{
-margin:0;
-font-size:34px;
+  margin:0;
+  font-size:34px;
+  color:#2f3f3c;
 }
 
 .new-button{
-background:#f0b35f;
-color:white;
-padding:14px 22px;
-border-radius:14px;
-border:0;
-font-weight:700;
-font-size:16px;
-cursor:pointer;
-font-family:"Zen Maru Gothic",sans-serif;
+  background:#7faea3;
+  color:white;
+  padding:14px 22px;
+  border-radius:999px;
+  border:0;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  font-family:"Zen Maru Gothic",sans-serif;
 }
 
 .album-grid{
-display:grid;
-grid-template-columns:1fr;
-gap:24px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
 }
 
 @media(min-width:1024px){
-.album-grid{
-grid-template-columns:repeat(3, minmax(0, 1fr));
+  .album-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
 
 .album-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,.06);
+  background:white;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(70,100,95,.10);
 }
 
 .album-image{
-height:280px;
-overflow:hidden;
-position:relative;
+  height:230px;
+  overflow:hidden;
+  position:relative;
+  background:#eaf2f0;
 }
 
 .album-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
 .badge{
-position:absolute;
-top:12px;
-right:12px;
-background:#6ca66f;
-color:white;
-padding:6px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:#7faea3;
+  color:white;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
 }
 
 .album-content{
-padding:18px;
+  padding:18px;
 }
 
 .album-title{
-font-size:20px;
-font-weight:700;
-margin-bottom:10px;
-line-height:1.5;
+  font-size:19px;
+  font-weight:700;
+  margin-bottom:10px;
+  line-height:1.5;
 }
 
 .album-meta{
-font-size:14px;
-color:#666;
-line-height:1.8;
+  font-size:14px;
+  color:#667875;
+  line-height:1.8;
 }
 
 .actions{
-display:flex;
-justify-content:space-between;
-}
-gap:8px;
-margin-top:16px;
+  display:flex;
+  gap:7px;
+  margin-top:16px;
+  flex-wrap:nowrap;
 }
 
 .action-btn{
-padding:10px 12px;
-white-space:nowrap;
-}
-.action-btn{
-padding:10px 5px;
-text-align:center;
-border-radius:10px;
-text-decoration:none;
-background:#f4f4f4;
-color:#333;
-font-size:12px;
-border:0;
-cursor:pointer;
-font-family:"Zen Maru Gothic",sans-serif;
-font-weight:600;
-transition:.2s;
+  flex:1;
+  min-width:0;
+  padding:9px 4px;
+  text-align:center;
+  border-radius:10px;
+  text-decoration:none;
+  background:#eef5f3;
+  color:#3f5f59;
+  font-size:12px;
+  border:0;
+  cursor:pointer;
+  font-family:"Zen Maru Gothic",sans-serif;
+  font-weight:700;
+  white-space:nowrap;
+  transition:.2s;
 }
 
 .action-btn:hover{
-transform:translateY(-2px);
+  background:#dfeeea;
+  transform:translateY(-2px);
 }
 
 .delete{
-color:#d9534f;
+  color:#c95b5b;
 }
 
 .new-card{
-border:3px dashed #ddd;
-background:white;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:420px;
-font-size:42px;
-color:#999;
-cursor:pointer;
+  border:3px dashed #c8dcd8;
+  background:white;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:330px;
+  font-size:44px;
+  color:#8fbab1;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(70,100,95,.06);
 }
 
 .modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.45);
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:100;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(35,55,52,.45);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
 }
 
 .modal.active{
-display:flex;
+  display:flex;
 }
 
 .modal-box{
-background:white;
-border-radius:24px;
-padding:28px;
-max-width:520px;
-width:100%;
-max-height:90vh;
-overflow:auto;
+  background:white;
+  border-radius:26px;
+  padding:28px;
+  max-width:520px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
 }
 
 .modal-box h2{
-margin-top:0;
-font-size:28px;
+  margin-top:0;
+  font-size:27px;
+  color:#3f5f59;
 }
 
 label{
-display:block;
-margin-top:16px;
-font-weight:700;
+  display:block;
+  margin-top:16px;
+  font-weight:700;
+  color:#3f5f59;
 }
 
 input{
-width:100%;
-padding:13px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:15px;
-margin-top:6px;
-font-family:"Zen Maru Gothic",sans-serif;
+  width:100%;
+  padding:13px;
+  border:1px solid #d7e5e2;
+  border-radius:13px;
+  font-size:15px;
+  margin-top:6px;
+  font-family:"Zen Maru Gothic",sans-serif;
 }
 
 .modal-actions{
-display:flex;
-gap:10px;
-justify-content:flex-end;
-margin-top:24px;
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  margin-top:24px;
 }
 
 .cancel{
-background:#eee;
-color:#333;
+  background:#eef5f3;
+  color:#3f5f59;
 }
 
 .save{
-background:#222;
-color:white;
+  background:#7faea3;
+  color:white;
 }
 
 @media(max-width:700px){
-header{
-padding:14px 18px;
-}
+  header{
+    padding:14px 18px;
+  }
 
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-gap:14px;
-}
+  header h1{
+    font-size:22px;
+  }
 
-.topbar h2{
-font-size:28px;
-}
+  .admin-label{
+    font-size:13px;
+  }
 
-.album-image{
-height:240px;
-}
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+  }
 
-.actions{
-grid-template-columns:repeat(5,1fr);
-gap:6px;
-}
+  .topbar h2{
+    font-size:28px;
+  }
 
-.action-btn{
-font-size:11px;
-padding:9px 4px;
-}
+  .album-image{
+    height:240px;
+  }
+
+  .action-btn{
+    font-size:11px;
+    padding:9px 3px;
+  }
 }
 </style>
 </head>
@@ -278,7 +293,7 @@ padding:9px 4px;
     <h1>Tom Photo Album</h1>
     <div class="tagline">未来のあなたに贈る、あの日の空気📷</div>
   </div>
-  <div>管理画面</div>
+  <div class="admin-label">管理画面</div>
 </header>
 
 <div class="container">
@@ -342,7 +357,7 @@ function renderAlbums(){
     grid.innerHTML += `
       <div class="album-card">
         <div class="album-image">
-          <img src="${album.thumb}">
+          <img src="${album.thumb || ""}">
           <div class="badge">公開中</div>
         </div>
 
@@ -355,22 +370,22 @@ function renderAlbums(){
           </div>
 
           <div class="actions">
-            <a class="action-btn" href="${album.url}" target="_blank">👁 開く</a>
+            <a class="action-btn" href="${album.url}" target="_blank">開く</a>
 
             <button class="action-btn" onclick="copyUrl('${album.url}')">
-              📋 コピー
+              コピー
             </button>
 
             <a class="action-btn" href="${album.drive || '#'}" target="_blank">
-              📁 Drive
+              Drive
             </a>
 
             <button class="action-btn" onclick="openEditModal(${index})">
-              ⚙️ 設定
+              設定
             </button>
 
             <button class="action-btn delete" onclick="deleteAlbum(${index})">
-              🗑 削除
+              削除
             </button>
           </div>
         </div>
