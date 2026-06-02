@@ -3,52 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ペイントフォト撮影会</title>
+<title>ペイントフォト撮影会｜Tom Photo Album</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
 
 body{
 margin:0;
-font-family:"Helvetica Neue",sans-serif;
-background:#fff;
+font-family:"Zen Maru Gothic",sans-serif;
+background:#fffaf5;
+color:#333;
+}
+
+.password-screen{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+background:linear-gradient(135deg,#fff8ee,#fff4dc);
+}
+
+.password-box{
+background:white;
+border-radius:24px;
+padding:32px;
+max-width:420px;
+width:100%;
+box-shadow:0 8px 24px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.password-box h1{
+margin:0 0 8px;
+font-size:28px;
+}
+
+.password-box p{
+color:#777;
+font-size:14px;
+}
+
+.password-box input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:14px;
+font-size:16px;
+margin-top:16px;
+font-family:"Zen Maru Gothic",sans-serif;
+}
+
+.password-box button{
+width:100%;
+margin-top:14px;
+padding:14px;
+border:0;
+border-radius:14px;
+background:#f0b35f;
+color:white;
+font-weight:700;
+font-size:16px;
+font-family:"Zen Maru Gothic",sans-serif;
+cursor:pointer;
+}
+
+.error{
+color:#d9534f;
+font-size:14px;
+margin-top:12px;
+display:none;
+}
+
+.album{
+display:none;
 }
 
 .topbar{
 padding:18px 24px;
-font-weight:bold;
+font-weight:700;
+background:white;
 border-bottom:1px solid #eee;
 }
 
 .hero{
-height:70vh;
-background:url("https://picsum.photos/1600/1000?random=20")
-center center/cover;
+height:65vh;
+background:url("https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1600") center/cover;
 display:flex;
 align-items:center;
 justify-content:center;
+position:relative;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.28);
 }
 
 .hero h1{
+position:relative;
 color:white;
-font-size:60px;
-font-weight:300;
-letter-spacing:12px;
+font-size:58px;
+font-weight:400;
+letter-spacing:8px;
 text-shadow:0 2px 10px rgba(0,0,0,.3);
 }
 
 .info{
-padding:30px;
+padding:28px 24px;
+background:white;
 }
 
 .info h2{
-margin-bottom:10px;
+margin:0 0 8px;
+font-size:24px;
+}
+
+.info p{
+margin:0;
+color:#666;
+line-height:1.8;
 }
 
 .toolbar{
 display:flex;
 justify-content:flex-end;
 gap:10px;
-padding:20px;
+padding:18px 20px;
+background:#fffaf5;
 border-top:1px solid #eee;
 border-bottom:1px solid #eee;
 }
@@ -57,14 +145,16 @@ border-bottom:1px solid #eee;
 background:#222;
 color:white;
 padding:12px 18px;
-border-radius:10px;
+border-radius:999px;
 text-decoration:none;
+font-weight:700;
 }
 
 .gallery{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:4px;
+background:white;
 }
 
 .gallery img{
@@ -75,53 +165,86 @@ display:block;
 }
 
 @media(min-width:768px){
-
 .gallery{
 grid-template-columns:repeat(5,1fr);
 }
 
 .hero h1{
-font-size:90px;
+font-size:86px;
 }
-
 }
-
 </style>
-
 </head>
+
 <body>
 
-<div class="topbar">
-Tom Photo Album
+<div class="password-screen" id="passwordScreen">
+  <div class="password-box">
+    <h1>Tom Photo Album</h1>
+    <p>合い言葉を入力してください</p>
+
+    <input id="passwordInput" type="password" placeholder="合い言葉">
+
+    <button onclick="checkPassword()">アルバムを見る</button>
+
+    <div class="error" id="errorMessage">
+      合い言葉が違います
+    </div>
+  </div>
 </div>
 
-<div class="hero">
-<h1>PAINT</h1>
+<div class="album" id="album">
+
+  <div class="topbar">
+    Tom Photo Album
+  </div>
+
+  <div class="hero">
+    <h1>PAINT</h1>
+  </div>
+
+  <div class="info">
+    <h2>2026/05/17 ペイントフォト撮影会</h2>
+    <p>
+      24枚 ｜ 公開期限：2026/06/30<br>
+      ご参加いただきありがとうございました。
+    </p>
+  </div>
+
+  <div class="toolbar">
+    <a class="button" href="#">まとめてDL</a>
+  </div>
+
+  <div class="gallery">
+    <img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1000">
+    <img src="https://picsum.photos/800/1000?random=2">
+    <img src="https://picsum.photos/800/1000?random=3">
+    <img src="https://picsum.photos/800/1000?random=4">
+    <img src="https://picsum.photos/800/1000?random=5">
+    <img src="https://picsum.photos/800/1000?random=6">
+    <img src="https://picsum.photos/800/1000?random=7">
+    <img src="https://picsum.photos/800/1000?random=8">
+    <img src="https://picsum.photos/800/1000?random=9">
+    <img src="https://picsum.photos/800/1000?random=10">
+  </div>
+
 </div>
 
-<div class="info">
-<h2>2026/05/17 ペイントフォト撮影会</h2>
-<p>24枚 ｜ 公開期限 2026/06/30</p>
-</div>
+<script>
+const correctPassword = "paint2026";
 
-<div class="toolbar">
-<a class="button" href="#">まとめてDL</a>
-</div>
+function checkPassword(){
+  const input = document.getElementById("passwordInput").value;
+  const error = document.getElementById("errorMessage");
 
-<div class="gallery">
-
-<img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1000">
-<img src="https://picsum.photos/800/1000?random=2">
-<img src="https://picsum.photos/800/1000?random=3">
-<img src="https://picsum.photos/800/1000?random=4">
-<img src="https://picsum.photos/800/1000?random=5">
-<img src="https://picsum.photos/800/1000?random=6">
-<img src="https://picsum.photos/800/1000?random=7">
-<img src="https://picsum.photos/800/1000?random=8">
-<img src="https://picsum.photos/800/1000?random=9">
-<img src="https://picsum.photos/800/1000?random=10">
-
-</div>
+  if(input === correctPassword){
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("album").style.display = "block";
+  }else{
+    error.style.display = "block";
+  }
+}
+</script>
 
 </body>
 </html>
