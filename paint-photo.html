@@ -15,8 +15,8 @@
 body{
 margin:0;
 font-family:"Zen Maru Gothic",sans-serif;
-background:#fffaf5;
-color:#333;
+background:#f5f8f7;
+color:#2f3f3c;
 }
 
 .password-screen{
@@ -25,33 +25,34 @@ display:flex;
 align-items:center;
 justify-content:center;
 padding:24px;
-background:linear-gradient(135deg,#fff8ee,#fff4dc);
+background:linear-gradient(135deg,#f5f8f7,#eaf2f0);
 }
 
 .password-box{
 background:white;
-border-radius:24px;
+border-radius:26px;
 padding:32px;
 max-width:420px;
 width:100%;
-box-shadow:0 8px 24px rgba(0,0,0,.08);
+box-shadow:0 8px 24px rgba(70,100,95,.10);
 text-align:center;
 }
 
 .password-box h1{
 margin:0 0 8px;
 font-size:28px;
+color:#5f8f86;
 }
 
 .password-box p{
-color:#777;
+color:#667875;
 font-size:14px;
 }
 
 .password-box input{
 width:100%;
 padding:14px;
-border:1px solid #ddd;
+border:1px solid #d7e5e2;
 border-radius:14px;
 font-size:16px;
 margin-top:16px;
@@ -63,8 +64,8 @@ width:100%;
 margin-top:14px;
 padding:14px;
 border:0;
-border-radius:14px;
-background:#f0b35f;
+border-radius:999px;
+background:#7faea3;
 color:white;
 font-weight:700;
 font-size:16px;
@@ -87,7 +88,8 @@ display:none;
 padding:18px 24px;
 font-weight:700;
 background:white;
-border-bottom:1px solid #eee;
+border-bottom:1px solid #e3eeee;
+color:#5f8f86;
 }
 
 .hero{
@@ -103,7 +105,7 @@ position:relative;
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,.28);
+background:rgba(0,0,0,.26);
 }
 
 .hero h1{
@@ -116,19 +118,43 @@ text-shadow:0 2px 10px rgba(0,0,0,.3);
 }
 
 .info{
-padding:28px 24px;
+padding:34px 24px;
 background:white;
 }
 
 .info h2{
-margin:0 0 8px;
+margin:0 0 14px;
 font-size:24px;
 }
 
-.info p{
-margin:0;
-color:#666;
+.message{
+font-size:16px;
+line-height:2;
+color:#4f625f;
+margin-bottom:18px;
+}
+
+.meta{
+color:#667875;
 line-height:1.8;
+}
+
+.guide{
+background:#f5f8f7;
+padding:24px;
+border-top:1px solid #e3eeee;
+border-bottom:1px solid #e3eeee;
+}
+
+.guide h3{
+margin:0 0 10px;
+color:#3f5f59;
+}
+
+.guide p{
+margin:0;
+color:#667875;
+line-height:1.9;
 }
 
 .toolbar{
@@ -136,13 +162,12 @@ display:flex;
 justify-content:flex-end;
 gap:10px;
 padding:18px 20px;
-background:#fffaf5;
-border-top:1px solid #eee;
-border-bottom:1px solid #eee;
+background:#fff;
+border-bottom:1px solid #e3eeee;
 }
 
 .button{
-background:#222;
+background:#7faea3;
 color:white;
 padding:12px 18px;
 border-radius:999px;
@@ -205,9 +230,23 @@ font-size:86px;
 
   <div class="info">
     <h2>2026/05/17 ペイントフォト撮影会</h2>
+
+    <div class="message">
+      お写真ができあがりました。<br>
+      未来のあなたに贈る、<br>
+      あの日の空気をお届けします。
+    </div>
+
+    <div class="meta">
+      24枚 ｜ 公開期限：2026/06/30
+    </div>
+  </div>
+
+  <div class="guide">
+    <h3>ダウンロードについて</h3>
     <p>
-      24枚 ｜ 公開期限：2026/06/30<br>
-      ご参加いただきありがとうございました。
+      お写真は画像を長押し、またはクリックして保存していただけます。<br>
+      一括ダウンロードをご希望の方は、下のボタンより保存をお願いいたします。
     </p>
   </div>
 
