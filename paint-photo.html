@@ -243,6 +243,35 @@ padding:6px 12px;
 border-radius:999px;
 }
 
+.expired-screen{
+min-height:100vh;
+display:none;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+background:#f5f8f7;
+}
+
+.expired-box{
+background:white;
+border-radius:26px;
+padding:34px;
+max-width:460px;
+box-shadow:0 8px 24px rgba(70,100,95,.10);
+}
+
+.expired-box h1{
+color:#5f8f86;
+margin:0 0 12px;
+}
+
+.expired-box p{
+color:#667875;
+line-height:1.8;
+margin:0;
+}
+
 @media(min-width:768px){
 .gallery{
 grid-template-columns:repeat(5,1fr);
@@ -270,6 +299,16 @@ font-size:86px;
   </div>
 </div>
 
+<div class="expired-screen" id="expiredScreen">
+  <div class="expired-box">
+    <h1>公開終了</h1>
+    <p>
+      このアルバムの公開は終了しました。<br>
+      必要な場合は、撮影者までお問い合わせください。
+    </p>
+  </div>
+</div>
+
 <div class="album" id="album">
 
   <div class="topbar">Tom Photo Album</div>
@@ -287,8 +326,8 @@ font-size:86px;
       あの日の空気をお届けします。
     </div>
 
-    <div class="meta">
-      24枚 ｜ 公開期限：2026/06/30
+    <div class="meta" id="albumMeta">
+      125枚
     </div>
   </div>
 
@@ -337,6 +376,8 @@ target="_blank">
 
 <script>
 const correctPassword = "paint2026";
+const expiryDate = "2026-06-30";
+const photoCountText = "125枚";
 
 const photos = [
   "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1600",
@@ -359,9 +400,51 @@ function checkPassword(){
 
   if(input === correctPassword){
     document.getElementById("passwordScreen").style.display = "none";
-    document.getElementById("album").style.display = "block";
+
+    if(isExpired()){
+      document.getElementById("expiredScreen").style.display = "flex";
+    }else{
+      document.getElementById("album").style.display = "block";
+      updateExpiryInfo();
+    }
+
   }else{
     error.style.display = "block";
+  }
+}
+
+function isExpired(){
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const expiry = new Date(expiryDate);
+  expiry.setHours(23,59,59,999);
+
+  return today > expiry;
+}
+
+function updateExpiryInfo(){
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const expiry = new Date(expiryDate);
+  expiry.setHours(23,59,59,999);
+
+  const diffTime = expiry - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  const meta = document.getElementById("albumMeta");
+
+  if(diffDays === 0){
+    meta.innerHTML = `
+      ${photoCountText} ｜ 公開期限：${expiryDate}<br>
+      本日まで公開
+    `;
+  }else{
+    meta.innerHTML = `
+      ${photoCountText} ｜ 公開期限：${expiryDate}<br>
+      あと${diffDays}日
+    `;
   }
 }
 
