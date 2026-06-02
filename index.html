@@ -77,7 +77,7 @@ gap:24px;
 
 @media(min-width:1024px){
 .album-grid{
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
 }
 }
 
@@ -131,12 +131,17 @@ line-height:1.8;
 }
 
 .actions{
-display:grid;
-grid-template-columns:repeat(5,1fr);
+display:flex;
+justify-content:space-between;
+}
 gap:8px;
 margin-top:16px;
 }
 
+.action-btn{
+padding:10px 12px;
+white-space:nowrap;
+}
 .action-btn{
 padding:10px 5px;
 text-align:center;
