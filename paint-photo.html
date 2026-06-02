@@ -80,9 +80,7 @@ margin-top:12px;
 display:none;
 }
 
-.album{
-display:none;
-}
+.album{display:none}
 
 .topbar{
 padding:18px 24px;
@@ -202,18 +200,47 @@ padding:20px;
 }
 
 .lightbox img{
-max-width:95%;
-max-height:95%;
+max-width:90%;
+max-height:90%;
 object-fit:contain;
 }
 
 .close-btn{
 position:absolute;
-top:20px;
-right:30px;
+top:18px;
+right:28px;
 color:white;
 font-size:42px;
 cursor:pointer;
+z-index:10001;
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(255,255,255,.18);
+color:white;
+border:0;
+font-size:42px;
+width:56px;
+height:56px;
+border-radius:50%;
+cursor:pointer;
+z-index:10001;
+}
+
+.prev-btn{left:20px}
+.next-btn{right:20px}
+
+.photo-count{
+position:absolute;
+bottom:20px;
+color:white;
+font-size:14px;
+background:rgba(0,0,0,.35);
+padding:6px 12px;
+border-radius:999px;
 }
 
 @media(min-width:768px){
@@ -239,17 +266,13 @@ font-size:86px;
 
     <button onclick="checkPassword()">アルバムを見る</button>
 
-    <div class="error" id="errorMessage">
-      合い言葉が違います
-    </div>
+    <div class="error" id="errorMessage">合い言葉が違います</div>
   </div>
 </div>
 
 <div class="album" id="album">
 
-  <div class="topbar">
-    Tom Photo Album
-  </div>
+  <div class="topbar">Tom Photo Album</div>
 
   <div class="hero">
     <h1>PAINT</h1>
@@ -282,27 +305,49 @@ font-size:86px;
   </div>
 
   <div class="gallery">
-    <img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1000" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=2" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=3" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=4" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=5" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=6" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=7" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=8" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=9" onclick="openLightbox(this.src)">
-    <img src="https://picsum.photos/800/1000?random=10" onclick="openLightbox(this.src)">
+    <img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1000" onclick="openLightbox(0)">
+    <img src="https://picsum.photos/800/1000?random=2" onclick="openLightbox(1)">
+    <img src="https://picsum.photos/800/1000?random=3" onclick="openLightbox(2)">
+    <img src="https://picsum.photos/800/1000?random=4" onclick="openLightbox(3)">
+    <img src="https://picsum.photos/800/1000?random=5" onclick="openLightbox(4)">
+    <img src="https://picsum.photos/800/1000?random=6" onclick="openLightbox(5)">
+    <img src="https://picsum.photos/800/1000?random=7" onclick="openLightbox(6)">
+    <img src="https://picsum.photos/800/1000?random=8" onclick="openLightbox(7)">
+    <img src="https://picsum.photos/800/1000?random=9" onclick="openLightbox(8)">
+    <img src="https://picsum.photos/800/1000?random=10" onclick="openLightbox(9)">
   </div>
 
 </div>
 
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <span class="close-btn">×</span>
-  <img id="lightboxImg">
+  <span class="close-btn" onclick="event.stopPropagation();closeLightbox()">×</span>
+
+  <button class="nav-btn prev-btn" onclick="event.stopPropagation();prevPhoto()">‹</button>
+
+  <img id="lightboxImg" onclick="event.stopPropagation()">
+
+  <button class="nav-btn next-btn" onclick="event.stopPropagation();nextPhoto()">›</button>
+
+  <div class="photo-count" id="photoCount"></div>
 </div>
 
 <script>
 const correctPassword = "paint2026";
+
+const photos = [
+  "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1600",
+  "https://picsum.photos/1200/1500?random=2",
+  "https://picsum.photos/1200/1500?random=3",
+  "https://picsum.photos/1200/1500?random=4",
+  "https://picsum.photos/1200/1500?random=5",
+  "https://picsum.photos/1200/1500?random=6",
+  "https://picsum.photos/1200/1500?random=7",
+  "https://picsum.photos/1200/1500?random=8",
+  "https://picsum.photos/1200/1500?random=9",
+  "https://picsum.photos/1200/1500?random=10"
+];
+
+let currentIndex = 0;
 
 function checkPassword(){
   const input = document.getElementById("passwordInput").value;
@@ -316,14 +361,38 @@ function checkPassword(){
   }
 }
 
-function openLightbox(src){
+function openLightbox(index){
+  currentIndex = index;
   document.getElementById("lightbox").style.display = "flex";
-  document.getElementById("lightboxImg").src = src;
+  updateLightbox();
 }
 
 function closeLightbox(){
   document.getElementById("lightbox").style.display = "none";
 }
+
+function updateLightbox(){
+  document.getElementById("lightboxImg").src = photos[currentIndex];
+  document.getElementById("photoCount").textContent = (currentIndex + 1) + " / " + photos.length;
+}
+
+function nextPhoto(){
+  currentIndex = (currentIndex + 1) % photos.length;
+  updateLightbox();
+}
+
+function prevPhoto(){
+  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+  updateLightbox();
+}
+
+document.addEventListener("keydown", function(event){
+  if(document.getElementById("lightbox").style.display === "flex"){
+    if(event.key === "ArrowRight") nextPhoto();
+    if(event.key === "ArrowLeft") prevPhoto();
+    if(event.key === "Escape") closeLightbox();
+  }
+});
 </script>
 
 </body>
