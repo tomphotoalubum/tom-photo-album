@@ -4,54 +4,255 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tom Photo Album 管理画面</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box}
+
 body{
 margin:0;
 font-family:"Zen Maru Gothic",sans-serif;
 background:#fffaf5;
-color:#333
+color:#333;
 }
-header{background:white;padding:20px 30px;border-bottom:1px solid #e5e5e5;display:flex;justify-content:space-between}
-header h1{margin:0;font-size:24px}
-.container{max-width:1200px;margin:auto;padding:30px 20px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
-.topbar h2{margin:0;font-size:34px}
-.new-button{background:#f0b35f;color:white;padding:14px 20px;border-radius:12px;border:0;font-weight:bold;font-size:16px;cursor:pointer}
-.album-grid{display:grid;grid-template-columns:1fr;gap:24px;}
-  @media(min-width:1024px){
 
+header{
+background:white;
+padding:16px 30px;
+border-bottom:1px solid #e5e5e5;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h1{
+margin:0;
+font-size:24px;
+}
+
+.tagline{
+font-size:13px;
+color:#888;
+margin-top:4px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:36px 20px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.topbar h2{
+margin:0;
+font-size:34px;
+}
+
+.new-button{
+background:#f0b35f;
+color:white;
+padding:14px 22px;
+border-radius:14px;
+border:0;
+font-weight:700;
+font-size:16px;
+cursor:pointer;
+}
+
+.album-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:24px;
+}
+
+@media(min-width:1024px){
 .album-grid{
 grid-template-columns:repeat(3,1fr);
 }
-
 }
-.album-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.06)}
-.album-image{height:280px;overflow:hidden;position:relative}
-.album-image img{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;top:12px;right:12px;background:#6ca66f;color:white;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold}
-.album-content{padding:18px}
-.album-title{font-size:22px;font-weight:bold;margin-bottom:10px}
-.album-meta{font-size:14px;color:#666;line-height:1.8}
-.url-box{margin-top:14px;padding:10px;background:#f6f6f6;border-radius:10px;font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.action-btn{padding:10px;text-align:center;border-radius:10px;text-decoration:none;background:#f4f4f4;color:#333;font-size:13px;border:0;cursor:pointer}
-.delete{color:#d9534f}
-.new-card{border:3px dashed #ddd;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;min-height:420px;font-size:42px;color:#999;cursor:pointer}
+
+.album-card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.album-image{
+height:280px;
+overflow:hidden;
+position:relative;
+}
+
+.album-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.badge{
+position:absolute;
+top:12px;
+right:12px;
+background:#6ca66f;
+color:white;
+padding:6px 10px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+}
+
+.album-content{
+padding:18px;
+}
+
+.album-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:10px;
+line-height:1.5;
+}
+
+.album-meta{
+font-size:14px;
+color:#666;
+line-height:1.8;
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:16px;
+}
+
+.action-btn{
+padding:10px 6px;
+text-align:center;
+border-radius:10px;
+text-decoration:none;
+background:#f4f4f4;
+color:#333;
+font-size:13px;
+border:0;
+cursor:pointer;
+font-family:"Zen Maru Gothic",sans-serif;
+font-weight:600;
+transition:.2s;
+}
+
+.action-btn:hover{
+transform:translateY(-2px);
+}
+
+.delete{
+color:#d9534f;
+}
+
+.new-card{
+border:3px dashed #ddd;
+background:white;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:420px;
+font-size:42px;
+color:#999;
+cursor:pointer;
+}
 
 /* モーダル */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;padding:20px;z-index:100}
-.modal.active{display:flex}
-.modal-box{background:white;border-radius:24px;padding:28px;max-width:520px;width:100%}
-.modal-box h2{margin-top:0;font-size:28px}
-label{display:block;margin-top:16px;font-weight:bold}
-input{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;font-size:15px;margin-top:6px}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
-.cancel{background:#eee;color:#333}
-.save{background:#222;color:white}
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:100;
+}
+
+.modal.active{
+display:flex;
+}
+
+.modal-box{
+background:white;
+border-radius:24px;
+padding:28px;
+max-width:520px;
+width:100%;
+}
+
+.modal-box h2{
+margin-top:0;
+font-size:28px;
+}
+
+label{
+display:block;
+margin-top:16px;
+font-weight:700;
+}
+
+input{
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+margin-top:6px;
+font-family:"Zen Maru Gothic",sans-serif;
+}
+
+.modal-actions{
+display:flex;
+gap:10px;
+justify-content:flex-end;
+margin-top:24px;
+}
+
+.cancel{
+background:#eee;
+color:#333;
+}
+
+.save{
+background:#222;
+color:white;
+}
+
+@media(max-width:700px){
+header{
+padding:14px 18px;
+}
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:14px;
+}
+
+.topbar h2{
+font-size:28px;
+}
+
+.album-image{
+height:240px;
+}
+}
 </style>
 </head>
 
@@ -59,12 +260,9 @@ input{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;font-size
 
 <header>
   <div>
-    <h1 style="margin:0;">Tom Photo Album</h1>
-    <div style="font-size:13px;color:#888;margin-top:4px;">
-      未来のあなたに贈る、あの日の空気📷
-    </div>
+    <h1>Tom Photo Album</h1>
+    <div class="tagline">未来のあなたに贈る、あの日の空気📷</div>
   </div>
-
   <div>管理画面</div>
 </header>
 
@@ -127,18 +325,27 @@ function renderAlbums(){
           <img src="${album.thumb}">
           <div class="badge">公開中</div>
         </div>
+
         <div class="album-content">
-          <div class="album-title">${album.title}</div>
+          <div class="album-title">📸 ${album.title}</div>
+
           <div class="album-meta">
             ${album.count}<br>
             公開期限：${album.limit}
           </div>
-          <div class="url-box">${album.url}</div>
+
           <div class="actions">
-            <a class="action-btn" href="${album.url}" target="_blank">開く</a>
-            <a class="action-btn" href="#">Drive</a>
-            <a class="action-btn" href="#">設定</a>
-            <button class="action-btn delete" onclick="deleteAlbum(${index})">削除</button>
+            <a class="action-btn" href="${album.url}" target="_blank">👁 開く</a>
+
+            <button class="action-btn" onclick="copyUrl('${album.url}')">
+              📋 コピー
+            </button>
+
+            <a class="action-btn" href="#">⚙️ 設定</a>
+
+            <button class="action-btn delete" onclick="deleteAlbum(${index})">
+              🗑 削除
+            </button>
           </div>
         </div>
       </div>
@@ -167,8 +374,20 @@ function saveAlbum(){
 
   albums.push(album);
   localStorage.setItem("albums", JSON.stringify(albums));
+
+  document.getElementById("title").value = "";
+  document.getElementById("count").value = "";
+  document.getElementById("limit").value = "";
+  document.getElementById("url").value = "";
+  document.getElementById("thumb").value = "";
+
   closeModal();
   renderAlbums();
+}
+
+function copyUrl(url){
+  navigator.clipboard.writeText(url);
+  alert("コピーしました✨");
 }
 
 function deleteAlbum(index){
