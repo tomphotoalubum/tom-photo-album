@@ -61,7 +61,6 @@ header h1{
 .topbar h2{
   margin:0;
   font-size:34px;
-  color:#2f3f3c;
 }
 
 .new-button{
@@ -93,6 +92,7 @@ header h1{
   border-radius:22px;
   overflow:hidden;
   box-shadow:0 8px 22px rgba(70,100,95,.10);
+  cursor:pointer;
 }
 
 .album-image{
@@ -327,6 +327,9 @@ input{
     <label>DriveフォルダURL</label>
     <input id="drive" placeholder="Google DriveフォルダURL">
 
+    <label>ZIPダウンロードURL</label>
+    <input id="zip" placeholder="Google DriveのZIPファイルURL">
+
     <div class="modal-actions">
       <button class="action-btn cancel" onclick="closeModal()">キャンセル</button>
       <button class="action-btn save" onclick="saveAlbum()">保存</button>
@@ -342,7 +345,8 @@ const defaultAlbums = [
     limit: "2026/06/30",
     url: "https://tom-photo-album.vercel.app/paint-photo.html",
     thumb: "https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200",
-    drive: "https://drive.google.com/drive/folders/1jOgNso6cg-yONrqpHK6MWhZiiso1f9gB"
+    drive: "https://drive.google.com/drive/folders/1jOgNso6cg-yONrqpHK6MWhZiiso1f9gB",
+    zip: ""
   }
 ];
 
@@ -355,9 +359,7 @@ function renderAlbums(){
 
   albums.forEach((album, index) => {
     grid.innerHTML += `
-      <div class="album-card"
-onclick="window.open('${album.url}','_blank')"
-style="cursor:pointer;">
+      <div class="album-card" onclick="window.open('${album.url}','_blank')">
         <div class="album-image">
           <img src="${album.thumb || ""}">
           <div class="badge">公開中</div>
@@ -372,23 +374,15 @@ style="cursor:pointer;">
           </div>
 
           <div class="actions">
-           <a class="action-btn"
-href="${album.url}"
-target="_blank"
-onclick="event.stopPropagation()">
-  開く
-</a>
+            <a class="action-btn" href="${album.url}" target="_blank" onclick="event.stopPropagation()">開く</a>
 
             <button class="action-btn" onclick="event.stopPropagation();copyUrl('${album.url}')">
               コピー
             </button>
 
-            <a class="action-btn"
-href="${album.drive || '#'}"
-target="_blank"
-onclick="event.stopPropagation()">
-  Drive
-</a>
+            <a class="action-btn" href="${album.drive || '#'}" target="_blank" onclick="event.stopPropagation()">
+              Drive
+            </a>
 
             <button class="action-btn" onclick="event.stopPropagation();openEditModal(${index})">
               設定
@@ -424,6 +418,7 @@ function openEditModal(index){
   document.getElementById("url").value = album.url || "";
   document.getElementById("thumb").value = album.thumb || "";
   document.getElementById("drive").value = album.drive || "";
+  document.getElementById("zip").value = album.zip || "";
 
   document.getElementById("modal").classList.add("active");
 }
@@ -439,6 +434,7 @@ function clearForm(){
   document.getElementById("url").value = "";
   document.getElementById("thumb").value = "";
   document.getElementById("drive").value = "";
+  document.getElementById("zip").value = "";
 }
 
 function saveAlbum(){
@@ -448,7 +444,8 @@ function saveAlbum(){
     limit: document.getElementById("limit").value,
     url: document.getElementById("url").value,
     thumb: document.getElementById("thumb").value,
-    drive: document.getElementById("drive").value
+    drive: document.getElementById("drive").value,
+    zip: document.getElementById("zip").value
   };
 
   if(editingIndex === null){
