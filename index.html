@@ -1,152 +1,259 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tom Photo Album</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: #fffaf5;
-      color: #333;
-    }
+<title>Tom Photo Album 管理画面</title>
 
-    header {
-      padding: 22px;
-      border-bottom: 1px solid #eee;
-      background: #fff;
-    }
+<style>
 
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-    }
+*{
+box-sizing:border-box;
+}
 
-    .hero {
-      padding: 48px 22px 36px;
-      background: linear-gradient(135deg, #fff8ee, #fff4dc);
-    }
+body{
+margin:0;
+font-family:"Helvetica Neue",sans-serif;
+background:#f8f6f2;
+color:#333;
+}
 
-    .hero h2 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
+header{
+background:white;
+padding:20px 30px;
+border-bottom:1px solid #e5e5e5;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-    .hero p {
-      margin: 0;
-      color: #7d6b5f;
-    }
+header h1{
+margin:0;
+font-size:24px;
+}
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 24px 18px 60px;
-    }
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px 20px;
+}
 
-    .album-card {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 16px;
-      background: #fff;
-      border-radius: 22px;
-      padding: 14px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      text-decoration: none;
-      color: inherit;
-    }
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
 
-    .album-card img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 18px;
-    }
+.topbar h2{
+margin:0;
+font-size:34px;
+}
 
-    .album-info h3 {
-      margin: 2px 0 6px;
-      font-size: 18px;
-    }
+.new-button{
+background:#f0b35f;
+color:white;
+padding:14px 20px;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
+}
 
-    .album-info p {
-      margin: 4px 0;
-      font-size: 14px;
-      color: #6f625c;
-    }
+.album-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+gap:24px;
+}
 
-    .badge {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #fff4dc;
-      color: #8a6230;
-      font-size: 12px;
-      font-weight: bold;
-    }
+.album-card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
 
-    .new-button {
-      display: inline-block;
-      margin: 20px 0;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: #f0b35f;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.album-image{
+height:220px;
+overflow:hidden;
+position:relative;
+}
 
-    @media (max-width: 600px) {
-      .album-card {
-        grid-template-columns: 96px 1fr;
-      }
+.album-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
 
-      .album-card img {
-        width: 96px;
-        height: 96px;
-      }
-    }
-  </style>
+.badge{
+position:absolute;
+top:12px;
+right:12px;
+background:#6ca66f;
+color:white;
+padding:6px 10px;
+border-radius:999px;
+font-size:12px;
+font-weight:bold;
+}
+
+.album-content{
+padding:18px;
+}
+
+.album-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.album-meta{
+font-size:14px;
+color:#666;
+line-height:1.8;
+}
+
+.url-box{
+margin-top:14px;
+padding:10px;
+background:#f6f6f6;
+border-radius:10px;
+font-size:13px;
+overflow:hidden;
+white-space:nowrap;
+text-overflow:ellipsis;
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:14px;
+}
+
+.action-btn{
+padding:10px;
+text-align:center;
+border-radius:10px;
+text-decoration:none;
+background:#f4f4f4;
+color:#333;
+font-size:13px;
+}
+
+.delete{
+color:#d9534f;
+}
+
+.new-card{
+border:3px dashed #ddd;
+background:white;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:420px;
+font-size:24px;
+font-weight:bold;
+color:#999;
+}
+
+@media(max-width:768px){
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:12px;
+}
+
+.topbar h2{
+font-size:28px;
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
-  <header>
-    <h1>Tom Photo Album</h1>
-  </header>
 
-  <section class="hero">
-    <h2>アルバム一覧</h2>
-    <p>お客様ごとの納品アルバムを管理します</p>
-  </section>
+<header>
+<h1>Tom Photo Album</h1>
+<div>管理画面</div>
+</header>
 
-  <main class="container">
+<div class="container">
 
-    <a class="new-button" href="#">
-      ＋ 新しいアルバムを作成
-    </a>
+<div class="topbar">
+<h2>アルバム一覧</h2>
 
-    <a class="album-card" href="paint-photo.html">
-      <img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1000" alt="">
-      <div class="album-info">
-        <h3>2026/05/17 ペイントフォト撮影会</h3>
-        <p>公開期限：2026/06/30</p>
-        <p>写真枚数：24枚</p>
-        <span class="badge">公開中</span>
-      </div>
-    </a>
+<a href="#" class="new-button">
+＋ 新しいアルバム
+</a>
+</div>
 
-    <a class="album-card" href="#">
-      <img src="https://picsum.photos/600/600?random=32" alt="">
-      <div class="album-info">
-        <h3>2026/06/07 紫陽花撮影会</h3>
-        <p>公開期限：2026/07/31</p>
-        <p>写真枚数：準備中</p>
-        <span class="badge">準備中</span>
-      </div>
-    </a>
+<div class="album-grid">
 
-  </main>
+<div class="album-card">
+
+<div class="album-image">
+
+<img src="https://drive.google.com/thumbnail?id=1ejwClHnDKfz0324Av0gaqn0b71fN_S6G&sz=w1200">
+
+<div class="badge">
+公開中
+</div>
+
+</div>
+
+<div class="album-content">
+
+<div class="album-title">
+2026/05/17 ペイントフォト
+</div>
+
+<div class="album-meta">
+24枚<br>
+公開期限：2026/06/30
+</div>
+
+<div class="url-box">
+https://tom-photo-album.vercel.app/paint-photo.html
+</div>
+
+<div class="actions">
+
+<a class="action-btn" href="paint-photo.html">
+開く
+</a>
+
+<a class="action-btn" href="#">
+Drive
+</a>
+
+<a class="action-btn" href="#">
+設定
+</a>
+
+<a class="action-btn delete" href="#">
+削除
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="new-card">
+＋
+</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
