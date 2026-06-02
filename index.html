@@ -4,127 +4,149 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom Photo Album</title>
+
   <style>
     body {
       margin: 0;
       font-family: "Helvetica Neue", Arial, sans-serif;
       background: #fffaf5;
-      color: #222;
+      color: #333;
     }
 
     header {
-      padding: 16px 24px;
+      padding: 22px;
       border-bottom: 1px solid #eee;
-      font-weight: bold;
+      background: #fff;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
     }
 
     .hero {
-      height: 70vh;
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-        url("https://picsum.photos/1600/1000?random=20") center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
+      padding: 48px 22px 36px;
+      background: linear-gradient(135deg, #fff8ee, #fff4dc);
     }
 
-    .hero h1 {
-      font-size: 42px;
-      letter-spacing: 12px;
-      font-weight: 300;
-    }
-
-    .info {
-      padding: 28px 22px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .info h2 {
+    .hero h2 {
       margin: 0 0 8px;
-      font-size: 24px;
+      font-size: 30px;
     }
 
-    .toolbar {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 18px 20px;
-      background: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid #eee;
+    .hero p {
+      margin: 0;
+      color: #7d6b5f;
     }
 
-    button {
-      border: 1px solid #ddd;
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+    }
+
+    .album-card {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
       background: #fff;
-      padding: 10px 16px;
-      border-radius: 12px;
+      border-radius: 22px;
+      padding: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .album-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .album-info h3 {
+      margin: 2px 0 6px;
+      font-size: 18px;
+    }
+
+    .album-info p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #6f625c;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fff4dc;
+      color: #8a6230;
+      font-size: 12px;
       font-weight: bold;
     }
 
-    .download {
-      background: #222;
-      color: white;
+    .new-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #f0b35f;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3px;
-      background: #fff;
-    }
-
-    .gallery img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-
-    @media (min-width: 768px) {
-      .gallery {
-        grid-template-columns: repeat(5, 1fr);
+    @media (max-width: 600px) {
+      .album-card {
+        grid-template-columns: 96px 1fr;
       }
 
-      .hero h1 {
-        font-size: 56px;
+      .album-card img {
+        width: 96px;
+        height: 96px;
       }
     }
   </style>
 </head>
-<body>
 
-  <header>Tom Photo Album</header>
+<body>
+  <header>
+    <h1>Tom Photo Album</h1>
+  </header>
 
   <section class="hero">
-    <h1>PHOTO</h1>
+    <h2>アルバム一覧</h2>
+    <p>お客様ごとの納品アルバムを管理します</p>
   </section>
 
-  <section class="info">
-    <h2>2026/05/17 ペイントフォト撮影会</h2>
-    <p>24枚　｜　公開期限：2026/06/30</p>
-  </section>
+  <main class="container">
 
-  <div class="toolbar">
-    <button>選択</button>
-    <button class="download">まとめてDL</button>
-  </div>
+    <a class="new-button" href="#">
+      ＋ 新しいアルバムを作成
+    </a>
 
-  <section class="gallery">
-    <img src="https://picsum.photos/800/1000?random=1">
-    <img src="https://picsum.photos/800/1000?random=2">
-    <img src="https://picsum.photos/800/1000?random=3">
-    <img src="https://picsum.photos/800/1000?random=4">
-    <img src="https://picsum.photos/800/1000?random=5">
-    <img src="https://picsum.photos/800/1000?random=6">
-    <img src="https://picsum.photos/800/1000?random=7">
-    <img src="https://picsum.photos/800/1000?random=8">
-    <img src="https://picsum.photos/800/1000?random=9">
-    <img src="https://picsum.photos/800/1000?random=10">
-  </section>
+    <a class="album-card" href="paint-photo.html">
+      <img src="https://picsum.photos/600/600?random=31" alt="">
+      <div class="album-info">
+        <h3>2026/05/17 ペイントフォト撮影会</h3>
+        <p>公開期限：2026/06/30</p>
+        <p>写真枚数：24枚</p>
+        <span class="badge">公開中</span>
+      </div>
+    </a>
 
+    <a class="album-card" href="#">
+      <img src="https://picsum.photos/600/600?random=32" alt="">
+      <div class="album-info">
+        <h3>2026/06/07 紫陽花撮影会</h3>
+        <p>公開期限：2026/07/31</p>
+        <p>写真枚数：準備中</p>
+        <span class="badge">準備中</span>
+      </div>
+    </a>
+
+  </main>
 </body>
 </html>
