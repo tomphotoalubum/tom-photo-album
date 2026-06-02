@@ -66,6 +66,7 @@ border:0;
 font-weight:700;
 font-size:16px;
 cursor:pointer;
+font-family:"Zen Maru Gothic",sans-serif;
 }
 
 .album-grid{
@@ -269,7 +270,7 @@ height:240px;
 <div class="container">
   <div class="topbar">
     <h2>アルバム一覧</h2>
-    <button class="new-button" onclick="openModal()">＋ 新しいアルバム</button>
+    <button class="new-button" onclick="openNewModal()">＋ 新しいアルバム</button>
   </div>
 
   <div class="album-grid" id="albumGrid"></div>
@@ -277,7 +278,7 @@ height:240px;
 
 <div class="modal" id="modal">
   <div class="modal-box">
-    <h2>新しいアルバムを作成</h2>
+    <h2 id="modalTitle">新しいアルバムを作成</h2>
 
     <label>アルバム名</label>
     <input id="title" placeholder="例：2026/06/07 紫陽花撮影会">
@@ -313,6 +314,7 @@ const defaultAlbums = [
 ];
 
 let albums = JSON.parse(localStorage.getItem("albums")) || defaultAlbums;
+let editingIndex = null;
 
 function renderAlbums(){
   const grid = document.getElementById("albumGrid");
@@ -341,7 +343,9 @@ function renderAlbums(){
               📋 コピー
             </button>
 
-            <a class="action-btn" href="#">⚙️ 設定</a>
+            <button class="action-btn" onclick="openEditModal(${index})">
+              ⚙️ 設定
+            </button>
 
             <button class="action-btn delete" onclick="deleteAlbum(${index})">
               🗑 削除
@@ -352,15 +356,40 @@ function renderAlbums(){
     `;
   });
 
-  grid.innerHTML += `<div class="new-card" onclick="openModal()">＋</div>`;
+  grid.innerHTML += `<div class="new-card" onclick="openNewModal()">＋</div>`;
 }
 
-function openModal(){
+function openNewModal(){
+  editingIndex = null;
+  document.getElementById("modalTitle").textContent = "新しいアルバムを作成";
+  clearForm();
+  document.getElementById("modal").classList.add("active");
+}
+
+function openEditModal(index){
+  editingIndex = index;
+  const album = albums[index];
+
+  document.getElementById("modalTitle").textContent = "アルバムを編集";
+  document.getElementById("title").value = album.title;
+  document.getElementById("count").value = album.count;
+  document.getElementById("limit").value = album.limit;
+  document.getElementById("url").value = album.url;
+  document.getElementById("thumb").value = album.thumb;
+
   document.getElementById("modal").classList.add("active");
 }
 
 function closeModal(){
   document.getElementById("modal").classList.remove("active");
+}
+
+function clearForm(){
+  document.getElementById("title").value = "";
+  document.getElementById("count").value = "";
+  document.getElementById("limit").value = "";
+  document.getElementById("url").value = "";
+  document.getElementById("thumb").value = "";
 }
 
 function saveAlbum(){
@@ -372,16 +401,16 @@ function saveAlbum(){
     thumb: document.getElementById("thumb").value
   };
 
-  albums.push(album);
+  if(editingIndex === null){
+    albums.push(album);
+  }else{
+    albums[editingIndex] = album;
+  }
+
   localStorage.setItem("albums", JSON.stringify(albums));
 
-  document.getElementById("title").value = "";
-  document.getElementById("count").value = "";
-  document.getElementById("limit").value = "";
-  document.getElementById("url").value = "";
-  document.getElementById("thumb").value = "";
-
   closeModal();
+  clearForm();
   renderAlbums();
 }
 
@@ -391,9 +420,13 @@ function copyUrl(url){
 }
 
 function deleteAlbum(index){
-  albums.splice(index,1);
-  localStorage.setItem("albums", JSON.stringify(albums));
-  renderAlbums();
+  const ok = confirm("このアルバムを削除しますか？");
+
+  if(ok){
+    albums.splice(index,1);
+    localStorage.setItem("albums", JSON.stringify(albums));
+    renderAlbums();
+  }
 }
 
 renderAlbums();
