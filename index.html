@@ -241,6 +241,12 @@ input{
   font-family:"Zen Maru Gothic",sans-serif;
 }
 
+.small-note{
+  font-size:12px;
+  color:#7a8d89;
+  margin-top:6px;
+}
+
 .modal-actions{
   display:flex;
   gap:10px;
@@ -332,7 +338,10 @@ input{
     <input id="url" placeholder="例：https://tom-photo-album.vercel.app/xxx.html">
 
     <label>サムネイル画像URL</label>
-    <input id="thumb" placeholder="Google Driveのthumbnail URL">
+    <input id="thumb" placeholder="Google Driveの画像共有URLをそのまま貼ってOK">
+    <div class="small-note">
+      Driveの画像URLは保存時に自動で表示用URLへ変換されます
+    </div>
 
     <label>DriveフォルダURL</label>
     <input id="drive" placeholder="Google DriveフォルダURL">
@@ -363,6 +372,28 @@ const defaultAlbums = [
 
 let albums = JSON.parse(localStorage.getItem("albums")) || defaultAlbums;
 let editingIndex = null;
+
+function convertDriveImageUrl(url){
+  if(!url) return "";
+
+  if(url.includes("drive.google.com/thumbnail?id=")){
+    return url;
+  }
+
+  let match = url.match(/\/file\/d\/([^/]+)/);
+
+  if(match && match[1]){
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1200`;
+  }
+
+  match = url.match(/[?&]id=([^&]+)/);
+
+  if(match && match[1]){
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1200`;
+  }
+
+  return url;
+}
 
 function renderAlbums(){
   const grid = document.getElementById("albumGrid");
@@ -455,13 +486,15 @@ function clearForm(){
 }
 
 function saveAlbum(){
+  const thumbInput = document.getElementById("thumb").value;
+
   const album = {
     title: document.getElementById("title").value,
     count: document.getElementById("count").value,
     limit: document.getElementById("limit").value,
     password: document.getElementById("password").value,
     url: document.getElementById("url").value,
-    thumb: document.getElementById("thumb").value,
+    thumb: convertDriveImageUrl(thumbInput),
     drive: document.getElementById("drive").value,
     zip: document.getElementById("zip").value
   };
