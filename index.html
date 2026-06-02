@@ -372,21 +372,29 @@ style="cursor:pointer;">
           </div>
 
           <div class="actions">
-            <a class="action-btn" href="${album.url}" target="_blank">開く</a>
+           <a class="action-btn"
+href="${album.url}"
+target="_blank"
+onclick="event.stopPropagation()">
+  開く
+</a>
 
-            <button class="action-btn" onclick="copyUrl('${album.url}')">
+            <button class="action-btn" onclick="event.stopPropagation();copyUrl('${album.url}')">
               コピー
             </button>
 
-            <a class="action-btn" href="${album.drive || '#'}" target="_blank">
-              Drive
-            </a>
+            <a class="action-btn"
+href="${album.drive || '#'}"
+target="_blank"
+onclick="event.stopPropagation()">
+  Drive
+</a>
 
-            <button class="action-btn" onclick="openEditModal(${index})">
+            <button class="action-btn" onclick="event.stopPropagation();openEditModal(${index})">
               設定
             </button>
 
-            <button class="action-btn delete" onclick="deleteAlbum(${index})">
+            <button class="action-btn delete" onclick="event.stopPropagation();deleteAlbum(${index})">
               削除
             </button>
           </div>
